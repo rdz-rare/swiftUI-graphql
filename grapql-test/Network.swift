@@ -10,6 +10,6 @@ import Apollo
 
 class Network {
     static let shared = Network()
-    private let grapqlUrl = "https://shrouded-wildwood-97503.herokuapp.com/graphql"
+    private let grapqlUrl = "https://swiftui-graphql-nexus.herokuapp.com/graphql"
     private(set) lazy var apollo = ApolloClient(url: URL(string: grapqlUrl)!)
 }

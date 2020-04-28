@@ -78,10 +78,10 @@ struct ContentView: View {
 }
 
 class UsersListData: ObservableObject {
-    @Published var users: [AllUsersQuery.Data.AllUser]
+    @Published var users: [AllUsersQuery.Data.User]
     
     init() {
-        self.users = [AllUsersQuery.Data.AllUser]()
+        self.users = [AllUsersQuery.Data.User]()
         loadData()
     }
     
@@ -89,7 +89,7 @@ class UsersListData: ObservableObject {
         Network.shared.apollo.fetch(query: AllUsersQuery()) { result in
             switch result {
                 case .success(let GQLResult):
-                    if let users = GQLResult.data?.allUsers {
+                    if let users = GQLResult.data?.users {
                         self.users = users
                     }
                 case .failure(let error):

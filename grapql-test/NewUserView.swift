@@ -47,7 +47,7 @@ struct NewUserView: View {
             switch result {
                 case .success(let GQLResponse):
                     if let user = GQLResponse.data?.createOneUser {
-                        self.usersData.users.append(AllUsersQuery.Data.AllUser.init(id: user.id, name: user.name))
+                        self.usersData.users.append(AllUsersQuery.Data.User.init(id: user.id, name: user.name))
                         self.presentationMode.wrappedValue.dismiss()
                     }
                 case .failure(let error):

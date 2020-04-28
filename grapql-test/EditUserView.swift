@@ -11,7 +11,7 @@ import SwiftUI
 struct EditUserView: View {
     @State private var name: String
     var usersData: UsersListData
-    private var user: AllUsersQuery.Data.AllUser
+    private var user: AllUsersQuery.Data.User
     @State private var saving = false
     
     @Environment(\.presentationMode) var presentationMode
@@ -59,8 +59,8 @@ struct EditUserView: View {
                 case .success(let GQLResult):
                     self.presentationMode.wrappedValue.dismiss()
                     if let currentUserIndex = self.usersData.users.firstIndex(where: {$0.id == self.user.id}) {
-                        if let xx = GQLResult.data?.updateUser {
-                            self.usersData.users[currentUserIndex] = AllUsersQuery.Data.AllUser.init(id: xx.id, name: xx.name)
+                        if let user = GQLResult.data?.updateUser {
+                            self.usersData.users[currentUserIndex] = AllUsersQuery.Data.User.init(id: user.id, name: user.name)
                         }
                             
                     }

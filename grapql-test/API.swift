@@ -348,7 +348,7 @@ public final class AllUsersQuery: GraphQLQuery {
   public let operationDefinition: String =
     """
     query AllUsers {
-      allUsers {
+      users {
         __typename
         id
         name
@@ -365,7 +365,7 @@ public final class AllUsersQuery: GraphQLQuery {
     public static let possibleTypes: [String] = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("allUsers", type: .list(.nonNull(.object(AllUser.selections)))),
+      GraphQLField("users", type: .list(.nonNull(.object(User.selections)))),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -374,21 +374,21 @@ public final class AllUsersQuery: GraphQLQuery {
       self.resultMap = unsafeResultMap
     }
 
-    public init(allUsers: [AllUser]? = nil) {
-      self.init(unsafeResultMap: ["__typename": "Query", "allUsers": allUsers.flatMap { (value: [AllUser]) -> [ResultMap] in value.map { (value: AllUser) -> ResultMap in value.resultMap } }])
+    public init(users: [User]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "users": users.flatMap { (value: [User]) -> [ResultMap] in value.map { (value: User) -> ResultMap in value.resultMap } }])
     }
 
     /// Get all users
-    public var allUsers: [AllUser]? {
+    public var users: [User]? {
       get {
-        return (resultMap["allUsers"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [AllUser] in value.map { (value: ResultMap) -> AllUser in AllUser(unsafeResultMap: value) } }
+        return (resultMap["users"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [User] in value.map { (value: ResultMap) -> User in User(unsafeResultMap: value) } }
       }
       set {
-        resultMap.updateValue(newValue.flatMap { (value: [AllUser]) -> [ResultMap] in value.map { (value: AllUser) -> ResultMap in value.resultMap } }, forKey: "allUsers")
+        resultMap.updateValue(newValue.flatMap { (value: [User]) -> [ResultMap] in value.map { (value: User) -> ResultMap in value.resultMap } }, forKey: "users")
       }
     }
 
-    public struct AllUser: GraphQLSelectionSet {
+    public struct User: GraphQLSelectionSet {
       public static let possibleTypes: [String] = ["User"]
 
       public static let selections: [GraphQLSelection] = [
