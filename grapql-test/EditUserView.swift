@@ -21,10 +21,10 @@ struct EditUserView: View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Nombre", text: $name)
+                    TextField("Name", text: $name)
                 }
             }
-            .navigationBarTitle("Editar usuario", displayMode: .inline)
+            .navigationBarTitle("Edit user", displayMode: .inline)
             .navigationBarItems(
                 leading:
                     Button("Cancel") {
@@ -46,7 +46,7 @@ struct EditUserView: View {
             self.user = user
             _name =  State(initialValue: user.name)
         } else {
-            fatalError("No se encontraron coincidencias")
+            fatalError("There is no user with this ID")
         }
     }
     

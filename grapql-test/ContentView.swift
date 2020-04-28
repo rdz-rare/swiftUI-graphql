@@ -16,34 +16,64 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(usersData.users, id: \.id) { user in
-                    Button(action: {
-                        self.selectUserToEdit(user.id)
+            VStack {
+                if usersData.users.count == 0 {
+                    VStack(alignment: .center) {
+                        Spacer()
                         
-                    }) {
-                        HStack(alignment: .center) {
-                            Text(user.name)
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                            
-                            Spacer()
-                            
-                            Text("ID: \(user.id)")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                        Text("There are no users.")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                        
+                        Button(action: {
+                            self.showingCreateUser = true
+                            print("add new user: \(self.showingCreateUser)")
+                        }) {
+                            HStack(alignment: .center) {
+                                Image(systemName: "plus")
+                                    .padding()
+                                Text("Add new user")
+                            }
+                            .foregroundColor(.white)
+                        }
+                        .padding(.trailing)
+                        .background(Color.green)
+                        .cornerRadius(CGFloat(10))
+                        .clipped()
+                        
+                        Spacer()
+                    }
+                } else {
+                    List {
+                        ForEach(usersData.users, id: \.id) { user in
+                            Button(action: {
+                                self.selectUserToEdit(user.id)
+                                
+                            }) {
+                                HStack(alignment: .center) {
+                                    Text(user.name)
+                                        .font(.headline)
+                                        .foregroundColor(.primary)
+                                    
+                                    Spacer()
+                                    
+                                    Text("ID: \(user.id)")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        }
+                        .onDelete(perform: removeUsers)
+                        .sheet(isPresented: self.$showingEditUser) {
+                            EditUserView(usersData: self.usersData, userId: self.selectedUserId)
                         }
                     }
-                }
-                .onDelete(perform: removeUsers)
-                .sheet(isPresented: self.$showingEditUser) {
-                    EditUserView(usersData: self.usersData, userId: self.selectedUserId)
                 }
             }
             .sheet(isPresented: $showingCreateUser) {
                 NewUserView(usersData: self.usersData)
             }
-            .navigationBarTitle("Usuarios \(usersData.users.count)")
+            .navigationBarTitle("Users (\(usersData.users.count))")
             .navigationBarItems(trailing:
                 Button(action: {
                     self.showingCreateUser = true
@@ -93,7 +123,7 @@ class UsersListData: ObservableObject {
                         self.users = users
                     }
                 case .failure(let error):
-                    print("Hubo un error \(error)")
+                    print("There was an error: \(error)")
             }
         }
     }
