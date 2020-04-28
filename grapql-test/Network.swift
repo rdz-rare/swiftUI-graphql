@@ -10,6 +10,6 @@ import Apollo
 
 class Network {
     static let shared = Network()
-    private let grapqlUrl = ProcessInfo.processInfo.environment["GRAPHQL_URL"] ?? "http://192.168.86.47:4000/graphql"
+    private let grapqlUrl = "https://shrouded-wildwood-97503.herokuapp.com/graphql"
     private(set) lazy var apollo = ApolloClient(url: URL(string: grapqlUrl)!)
 }
