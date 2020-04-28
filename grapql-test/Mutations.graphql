@@ -1,0 +1,22 @@
+
+mutation CreateUser($user: UserCreateInput!) {
+  createOneUser(data: $user) {
+    id
+    name
+  }
+}
+
+
+mutation DeleteUser($userId: Int!) {
+  deleteUser(id: $userId) {
+    id
+  }
+}
+
+
+mutation UpdateUser($user: UserUpdateCustomInput!) {
+  updateUser(user: $user) {
+    id
+    name
+  }
+}
